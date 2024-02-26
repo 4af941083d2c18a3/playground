@@ -72,7 +72,7 @@ async function progressByTime(unit, array, accumulate) {
     for (item of array) {
         const seeing = item.node
         if (parseInt(seeing.timestamp) > sectionList[0]) {
-            csv += `\n${sectionList[0]/1000 - parseInt(pollInfo.startAt)},${votes.join()}`
+            csv += `\n${sectionList[0]/60000 - parseInt(pollInfo.startAt)/60},${votes.join()}`
             if (!accumulate) {
                 votes.fill(0)
             }
@@ -80,7 +80,7 @@ async function progressByTime(unit, array, accumulate) {
         }
         votes[seeing.candidate] += parseInt(parseInt(seeing.amount)/(10**18))
     }
-    csv += `\n${parseInt(pollInfo.due) - parseInt(pollInfo.startAt)},${votes.join()}`
+    csv += `\n${(parseInt(pollInfo.due) - parseInt(pollInfo.startAt))/60},${votes.join()}`
 
     navigator.clipboard.writeText(csv)
     alert('Text is copied.')
