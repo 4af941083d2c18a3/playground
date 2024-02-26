@@ -1,0 +1,105 @@
+<html>
+  <head>
+    <title>라멘의 놀이터</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <script src="https://polygonscan.com/assets/js/custom/web3-eth.min.js?v=23.7.4.1"></script>
+    <script src="https://polygonscan.com//assets/js/custom/web3-providers-http.min.js?v=23.7.4.1"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+      function input(id) {return $('#'+id).val()}
+    </script>
+    <script src="./gravityRead.js"></script>
+    <!-- <script src="./objektsale.js?v=0"></script> -->
+    <!-- <script src="./objektimage.js?v=0"></script> -->
+    <script src="./atmosphere.js?v=0"></script>
+    <script src="./gravityNamuWiki.js?v=0"></script>
+    <script src="./gravityProgress.js"></script>
+  </head>
+  <body>
+    <div class="grid">
+      <div class="wrapper gravity-left">
+        <span>Poll ID </span><input type="text" id="pollid">
+      </div>
+      <div class="wrapper gravity-right">
+        <p>그래비티 개표</p>
+        <button onclick="start()">시작</button>
+        <button onclick="stop()">강제종료</button>
+        <br><span id="status">대기 중</span>
+      </div>
+      <!-- <div class="wrapper">
+        <p>오브젝트 판매량</p>
+        <span>멤버 이름</span><input type="text" id="meminput"><button onclick="sale(input('meminput'))">실행</button>
+        <br><span>제외할 개수</span><input type="text" id="heoinput"><button onclick="heosoo(input('heoinput'))">실행</button>
+        <br><span>결과 출력</span><button onclick="saleresult()">실행</button>
+      </div> -->
+      <div class="wrapper gravity-right">
+        <p>나무위키 Gravity Result</p>
+        <button onclick="namuRun()">실행</button>
+      </div>
+      <div class="wrapper gravity-right">
+        <p>그래비티 추이</p>
+        <select onchange="progressSelect()" id="selectStandard">
+          <option value="count">개수</option>
+          <option value="time">시간</option>
+        </select>
+        <input type="text" id="progressUnit">
+        <select id="selectAccumulate">
+          <option value="true">TRUE</option>
+          <option value="false">FALSE</option>
+        </select>
+        <button onclick="progressFront()">실행</button>
+      </div>
+      <div class="wrapper grid-block">
+        <p>Today's Atmosphere</p>
+        <span>최신에서 </span><input type="text" id="start_after"><span style="font-size: initial;">+1 번째</span><button onclick="feed()">실행</button>
+      </div>
+    </div>
+    <hr>
+    <div class="wrapper-result">
+      <p style="font-size: 25px;">결과</p>
+      <span id="that" style="font-size: initial;"></span>
+    </div>
+    <style>
+      body {margin: 0;}
+      p {margin: 0;}
+      .wrapper {
+        border: 1px solid #000;
+        padding: 10px;
+      }
+      .wrapper-result {
+        border: 1px solid #000;
+        margin: 10px;
+        padding: 10px;
+      }
+      .wrapper p {
+        font-size: 25px;
+      }
+      input {
+        width: 90px;
+      }
+      .grid {
+        /* position: relative; */
+        display: grid;
+        gap: 10px;
+        margin: 10px;
+      }
+      .gravity-left {
+        grid-row: 1 / 4;
+        grid-column: 1 / 2;
+        text-align: center;
+      }
+      .gravity-left::before {
+        content: "";
+        display: inline-block;
+        vertical-align: middle;
+        height: 100%
+      }
+      .gravity-right {
+        grid-column: 2 / 6;
+      }
+      .grid-block {
+        grid-column: 1 / 6;
+      }
+    </style>
+  </body>
+</html>
