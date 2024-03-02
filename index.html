@@ -18,7 +18,9 @@
   <body>
     <div class="grid">
       <div class="wrapper gravity-left">
-        <span>Poll ID </span><input type="text" id="pollid">
+        <span id="pollIdInput">
+          <span>Poll ID </span><input type="text" id="pollid">
+        </span>
       </div>
       <div class="wrapper gravity-right">
         <p>그래비티 개표</p>
@@ -87,13 +89,20 @@
         grid-row: 1 / 4;
         grid-column: 1 / 2;
         text-align: center;
+        position: relative;
       }
-      .gravity-left::before {
+      #pollIdInput {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+      }
+      /* .gravity-left::before {
         content: "";
         display: inline-block;
         vertical-align: middle;
         height: 100%
-      }
+      } */
       .gravity-right {
         grid-column: 2 / 6;
       }
