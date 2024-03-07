@@ -60,6 +60,10 @@ ${item.votesComma} (${item.votesPercent}%)}}} ||\n`
 }
 
 async function namuRun() {
-  pollid = input('pollid')
-  gravityResult(await read(pollRes))
+  input('pollid') ? pollid = input('pollid') : breakOn = true;
+  if (breakOn) {
+      alert('Poll ID를 입력해주세요')
+      breakOn = false
+      return
+  } else {gravityResult(await read(pollRes))}
 }

@@ -1,5 +1,6 @@
 async function progressRun(standard, unit, accumulate) {
     await variableSetting()
+    if (breakOn) {breakOn = false; return}
     var data = await fetch(
         `https://squid.subsquid.io/cosmo/graphql`,
         {

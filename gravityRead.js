@@ -3,6 +3,7 @@ var candList;
 var candNum;
 var totalVotes;
 var intervalId;
+var breakOn = false;
 
 //var r = new Array(candNum).fill('0');
 
@@ -117,15 +118,25 @@ async function read(item) {
 // pollid : String
 
 async function variableSetting() {
-    pollid = (input('pollid') || 0);
-    candList = await read(cand);
-    candNum = await candList.length;
-    totalVotes = await read(totVot)
+    input('pollid') ? pollid = input('pollid') : breakOn = true;
+    if (breakOn) {
+        alert('Poll ID를 입력해주세요')
+        return
+    } else {
+        candList = await read(cand);
+        candNum = await candList.length;
+        totalVotes = await read(totVot)
+    }
 }
 
 async function start() {
     $('#status').text('집계 중')
     await variableSetting()
+    if (breakOn) {
+        breakOn = false
+        $('#status').text('대기 중')
+        return
+    }
 
     l=[]
     intervalId = setInterval(() => lpush(), 2000);
