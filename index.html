@@ -14,6 +14,7 @@
     <script src="./atmosphere.js?v=0"></script>
     <script src="./gravityNamuWiki.js?v=0"></script>
     <script src="./gravityProgress.js"></script>
+    <script src="./schedule2json.js"></script>
   </head>
   <body>
     <div class="grid">
@@ -54,6 +55,11 @@
       <div class="wrapper grid-block">
         <p>Today's Atmosphere</p>
         <span>최신에서 </span><input type="text" id="start_after"><span style="font-size: initial;">+1 번째</span><button onclick="feed()">실행</button>
+      </div>
+      <div class="wrapper grid-block">
+        <p>스케줄 JSON화</p>
+        <input id="sch-title" placeholder="title"><input id="sch-detail" placeholder="detail"><input id="sch-time" placeholder="time"><input id="sch-member" placeholder="member">
+        <button onclick="sch2json()">실행</button>
       </div>
     </div>
     <hr>
