@@ -1,8 +1,8 @@
 function sch2json() {
-    var title = input('#sch-title')
-    var detail = input('#sch-detail')
-    var time = input('#sch-time')
-    var member = input('#sch-member')
+    var title = input('sch-title')
+    var detail = input('sch-detail')
+    var time = input('sch-time')
+    var member = input('sch-member')
 
     var text = 
 `                {
