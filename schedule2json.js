@@ -5,12 +5,12 @@ function sch2json() {
     var member = input('#sch-member')
 
     var text = 
-`            {
-                "title" : ${title},
-                "detail" : ${detail},
-                "time" : ${time},
-                "member" : ${member}
-            }`
+`                {
+                    "title" : ${title},
+                    "detail" : ${detail},
+                    "time" : ${time},
+                    "member" : ${member}
+                }`
     // var blank = '            '
 
     navigator.clipboard.writeText(text)
