@@ -15,12 +15,19 @@
     <script src="./gravityNamuWiki.js?v=0"></script>
     <script src="./gravityProgress.js"></script>
     <script src="./schedule2json.js"></script>
+    <script src="./birthday2json.js"></script>
   </head>
   <body>
     <div class="grid">
       <div class="wrapper gravity-left">
-        <span id="pollIdInput">
+        <span>
           <span>Poll ID </span><input type="text" id="pollid">
+          <p style="margin: 8px;">
+            <select id="addressSelect">
+              <option selected value="tripleS">tripleS</option>
+              <option value="ARTMS">ARTMS</option>
+            </select>
+          </p>
         </span>
       </div>
       <div class="wrapper gravity-right">
@@ -60,6 +67,24 @@
         <p>스케줄 JSON화</p>
         <input id="sch-title" placeholder="title" tabindex="1"><input id="sch-detail" placeholder="detail" tabindex="2"><input id="sch-time" placeholder="time"  tabindex="3"><input id="sch-member" placeholder="member" tabindex="4">
         <button onclick="sch2json()">실행</button>
+      </div>
+      <div class="wrapper grid-block">
+        <p>생카 JSON화</p>
+        <input id="birth-tweets1" placeholder="tweets1" tabindex="5">
+        <input id="birth-tweets2" placeholder="tweets2" tabindex="6">
+        <input id="birth-tag1" placeholder="tag1" tabindex="7">
+        <input id="birth-tag2" placeholder="tag2" tabindex="8">
+        <input id="birth-image1" placeholder="image1" tabindex="9">
+        <input id="birth-image2" placeholder="image2" tabindex="10">
+        <input id="birth-start" placeholder="startDate" tabindex="11">
+        <input id="birth-end" placeholder="endDate" tabindex="12">
+        <input id="birth-name" placeholder="name" tabindex="13">
+        <input id="birth-address" placeholder="address" tabindex="14">
+        <input id="birth-kakao" placeholder="kakao" tabindex="15">
+        <input id="birth-google" placeholder="google" tabindex="16">
+        <input id="birth-naver" placeholder="naver" tabindex="17">
+        <button onclick="birth2json()">실행</button>
+        <button onclick="birthReset()">리셋</button>
       </div>
     </div>
     <hr>
@@ -117,6 +142,12 @@
       }
       .grid-block {
         grid-column: 1 / 6;
+      }
+      pre {
+        border: 0.5px solid black;
+        padding: 5px;
+        font-family: Consolas;
+        white-space: pre-wrap;
       }
     </style>
   </body>

@@ -16,4 +16,6 @@ function sch2json() {
     navigator.clipboard.writeText(text)
     $('#that').empty()
     $('#that').append(`<span>Text is Copied.</span>`)
+    $('#that').append(`<pre></pre>`)
+    $('pre').text(text)
 }

@@ -57,6 +57,8 @@ ${item.votesComma} (${item.votesPercent}%)}}} ||\n`
   navigator.clipboard.writeText(text)
   $('#that').empty()
   $('#that').append(`<span>Text is Copied.</span>`)
+  $('#that').append(`<pre></pre>`)
+  $('pre').text(text)
 }
 
 async function namuRun() {
@@ -65,5 +67,9 @@ async function namuRun() {
       alert('Poll ID를 입력해주세요')
       breakOn = false
       return
-  } else {gravityResult(await read(pollRes))}
+  } else {
+    address = addressObj[input('addressSelect')];
+    mylist = await new new Web3Eth(new Web3HttpProvider("https://polygon-rpc.com")).Contract(myinstance,address).methods;
+    gravityResult(await read(pollRes))
+  }
 }
