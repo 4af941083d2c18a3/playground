@@ -6,10 +6,10 @@ function sch2json() {
 
     var text = 
 `                {
-                    "title" : ${title},
-                    "detail" : ${detail},
-                    "time" : ${time},
-                    "member" : ${member}
+                    "title" : "${title}",
+                    "detail" : "${detail}",
+                    "time" : "${time}",
+                    "member" : "${member}"
                 }`
     // var blank = '            '
 
