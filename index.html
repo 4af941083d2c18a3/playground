@@ -7,6 +7,10 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
       function input(id) {return $('#'+id).val()}
+      function showImg(url) {
+        $('#that').empty()
+        $('#that').append(`<img width=100% src="${url}">`)
+      }
     </script>
     <script src="./gravityRead.js"></script>
     <!-- <script src="./objektsale.js?v=0"></script> -->
@@ -85,6 +89,11 @@
         <input id="birth-naver" placeholder="naver" tabindex="17">
         <button onclick="birth2json()">실행</button>
         <button onclick="birthReset()">리셋</button>
+      </div>
+      <div class="wrapper grid-block">
+        <span>이미지 링크</span><input id="image-url" placeholder="url">
+        <button onclick="showImg(input('image-url'))">실행</button>
+        <br><span style="color:#999;font-size: 0.8em;">Tip. 파일 확장자명을 강제로 변경하여도 사진이 깨지지 않음.</span>
       </div>
     </div>
     <hr>
