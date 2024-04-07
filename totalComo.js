@@ -2,6 +2,8 @@ async function totalComo(address) {
     $('#that').empty()
     $('#that').append('<span>값을 불러오고 있습니다아아아...</span>')
     if (!address) {$('#that > span').text('값을 불러올 수 없습니다.');alert('지갑주소나 아이디를 입력해주세요.');return}
+    var add = await addressCheck(address)
+    if (!add) {$('#that > span').text('값을 불러올 수 없습니다.');alert('해당 유저가 존재하지 않습니다.');return}
     var data = await fetch(
         `https://squid.subsquid.io/cosmo/graphql`,
         {
@@ -10,11 +12,11 @@ async function totalComo(address) {
             body: JSON.stringify(
                 {
                     query: `{
-                        comos(where: {owner_eq: "${await addressCheck(address)}"}) {
+                        comos(where: {owner_eq: "${add}"}) {
                             balance
                             contract
                         }
-                        votesConnection(where: {from_eq: "${await addressCheck(address)}"}, first: 99, orderBy: timestamp_DESC) {
+                        votesConnection(where: {from_eq: "${add}"}, first: 99, orderBy: timestamp_DESC) {
                             edges {
                                 node {
                                    amount
@@ -51,7 +53,9 @@ async function totalComo(address) {
 }
 
 async function addressCheck(text) {
-    return text.slice(0,2) == '0x' ? text : await cosmoIdSearch(text)
+    try {
+        return text.slice(0,2) == '0x' ? text : await cosmoIdSearch(text)
+    } catch {return false}
 }
 
 async function cosmoIdSearch(id) {
