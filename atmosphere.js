@@ -4,7 +4,9 @@ function feed() {
     SA = (parseInt(input('start_after')) || 0)
   } catch {}
   
-  fetch(`https://api.cosmo.fans/news/v1/feed?artist=tripleS&limit=1&start_after=${SA}`).then(async (res) => {
+  fetch(`https://api.cosmo.fans/news/v1/feed?artist=tripleS&limit=1&start_after=${SA}`,{
+    headers: {'Accept-Language':'ko'}
+  }).then(async (res) => {
     const data = await res.json()
     const object = data.results[0]
 
