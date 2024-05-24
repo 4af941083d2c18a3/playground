@@ -21,6 +21,7 @@
     <script src="./schedule2json.js"></script>
     <script src="./birthday2json.js"></script>
     <script src="./totalComo.js"></script>
+    <script src="./member.js"></script>
   </head>
   <body>
     <div class="grid">
@@ -73,6 +74,7 @@
       <div class="wrapper grid-block">
         <p>Today's Atmosphere</p>
         <span>최신에서 </span><input type="text" id="start_after"><span style="font-size: initial;">+1 번째</span><button onclick="feed()">실행</button>
+        <br><span>날짜 입력 : </span><input type="text" id="yymmdd" placeholder="YYMMDD"><button onclick="searchByDate()">실행</button>
       </div>
       <div class="wrapper grid-block">
         <p>스케줄 JSON화</p>
