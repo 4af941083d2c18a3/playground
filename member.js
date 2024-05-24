@@ -288,3 +288,11 @@ var memberInfo = [
         "birthday": "040213"
     }
 ]
+
+function getMember(key) {
+    var arr = []
+    memberInfo.forEach(i=>{
+        arr.push(i[key])
+    })
+    console.log(arr)
+}
