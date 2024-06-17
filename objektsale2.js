@@ -1,7 +1,7 @@
 function sale2(index,member,collection) {
   const id = ['cream01',member,collection].join('-')
   fetch(
-    `https://squid.subsquid.io/cosmo/graphql`,
+    `https://nova.squids.live/cosmo/graphql`,
     {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},

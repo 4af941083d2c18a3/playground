@@ -2,10 +2,10 @@ async function progressRun(standard, unit, accumulate) {
     await variableSetting()
     if (breakOn) {breakOn = false; return}
     var data = await fetch(
-        `https://squid.subsquid.io/cosmo/graphql`,
+        `https://nova.squids.live/cosmo/graphql`,
         {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
+            headers: {'Content-Type': 'application/json','Origin':'https://nova.gd'},
             body: JSON.stringify(
                 {
                     query: `{

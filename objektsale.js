@@ -1,6 +1,6 @@
 async function sale(member) {
   const res = await fetch(
-    `https://squid.subsquid.io/cosmo/graphql`,
+    `https://nova.squids.live/cosmo/graphql`,
     {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},

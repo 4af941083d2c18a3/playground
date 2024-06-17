@@ -127,6 +127,7 @@ async function variableSetting() {
         address = addressObj[input('addressSelect')];
         mylist = await new new Web3Eth(new Web3HttpProvider("https://polygon-rpc.com")).Contract(myinstance,address).methods;
         candList = await read(cand);
+        candList = candList.map(v=>{return v.replaceAll('\b','')})
         candNum = await candList.length;
         totalVotes = await read(totVot)
     }

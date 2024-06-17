@@ -8,7 +8,7 @@ var memberInfo = [
         "englishStageName": "SeoYeon",
         "order": 1,
         "Snumber": "S1",
-        "color": "22aeff",
+        "color": "21aefe",
         "birthday": "230806"
     },
     {
@@ -32,7 +32,7 @@ var memberInfo = [
         "englishStageName": "JiWoo",
         "order": 3,
         "Snumber": "S3",
-        "color": "fff800",
+        "color": "fff801",
         "birthday": "051024"
     },
     {
@@ -44,7 +44,7 @@ var memberInfo = [
         "englishStageName": "ChaeYeon",
         "order": 4,
         "Snumber": "S4",
-        "color": "98f21d",
+        "color": "98f21e",
         "birthday": "041204"
     },
     {

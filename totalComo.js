@@ -5,7 +5,7 @@ async function totalComo(address) {
     var add = await addressCheck(address)
     if (!add) {$('#that > span').text('값을 불러올 수 없습니다.');alert('해당 유저가 존재하지 않습니다.');return}
     var data = await fetch(
-        `https://squid.subsquid.io/cosmo/graphql`,
+        `https://nova.squids.live/cosmo/graphql`,
         {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
