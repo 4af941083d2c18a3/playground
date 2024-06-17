@@ -289,10 +289,22 @@ var memberInfo = [
     }
 ]
 
-function getMember(key) {
+function getMemberArray(key) {
     var arr = []
     memberInfo.forEach(i=>{
         arr.push(i[key])
+    })
+    console.log(arr)
+}
+
+function getMemberObject(arrayOfKey) {
+    var arr = []
+    memberInfo.forEach(i=>{
+        var obj = {}
+        arrayOfKey.forEach(j=>{
+            obj[j]=i[j]
+        })
+        arr.push(obj)
     })
     console.log(arr)
 }
