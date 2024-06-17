@@ -9,7 +9,7 @@ var memberInfo = [
         "order": 1,
         "Snumber": "S1",
         "color": "21aefe",
-        "birthday": "230806"
+        "birthday": "030806"
     },
     {
         "koreanFullName": "정혜린",
