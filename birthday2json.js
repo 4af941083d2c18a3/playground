@@ -46,7 +46,7 @@ function birth2json() {
 }
 
 function tweets(data) {
-    return data && data.split('twitter.com/')[1].split('?')[0]
+    return data && data.split('.com/')[1].split('?')[0]
 }
 
 function image(data) {
