@@ -6,6 +6,7 @@ var intervalId;
 var breakOn = false;
 var address;
 var mylist;
+var voteFinish = false;
 
 //var r = new Array(candNum).fill('0');
 
@@ -104,11 +105,11 @@ function p(l) {
 }
 
 function sum(array) {
-    var s = 0
-    for (i=0;i<candNum;i++) {
-        s += array[i]
-    }
-    return s
+    // var s = 0
+    // for (i=0;i<candNum;i++) {
+    //     s += array[i]
+    // }
+    return eval(array.map(v=>v[1]).join("+"))
 }
 
 async function read(item) {
@@ -141,16 +142,27 @@ async function start() {
         $('#status').text('대기 중')
         return
     }
-
+    var pollInfo = await read(polls)
+    var endDt = parseInt(pollInfo.due)*1000
+    var intervalId1 = setInterval(async ()=>{
+        var dt = new Date()*1
+        if (endDt < dt) {
+            clearInterval(intervalId1)
+            totalVotes = await read(totVot)
+            totalComo = Math.round(pollInfo.totalVotedCOMO/10**18)
+            voteFinish = true
+        }
+    },100)
     l=[]
     intervalId = setInterval(() => lpush(), 2000);
 }
 
 async function lpush() {
+    if (!voteFinish) {return undefined}
     var ws = await read(candVot)
-    ws = ws.join()
-    if (!(l.includes(ws))) {
-        l.push(ws)
+    // ws = ws.join()
+    if (!(l.includes(ws.join()))) {
+        l.push(ws.join())
     }
 
     chart(ws)
@@ -162,38 +174,57 @@ function stop() {
         intervalId = 0
         $('#status').text('대기 중')
         $('#that').append("<hr>")
-        for (item of l) {
-            $('#that').append(`<p>${item}</p>`)
-        }
+        // for (item of l) {
+        //     $('#that').append(`<pre>${item}</p>`)
+        // }
+        $('#that').append(`<pre>${l.join('\n')}</pre>`)
     } else {
         alert('집계 중이지 않습니다.')
     }
 }
 
 async function chart(ed) {
-    var ln=[]
-    var edl = ed.split(',')
-    for (item of edl) {
-        ln.push(parseInt(item)/(10**18))
-    }
+    $('#that').empty().append('<div style="background:black;color:#fff" class="gravityResultDiv"></div>')
+    var ln = candList.map(v=>{
+        var index = candList.indexOf(v)
+        var count = Math.round(ed[index]/10**18)
+        return [v,count]
+    }).sort((x,y)=>y[1]-x[1])
+    // ed.map(v=>{return Math.round(v/10**18)})
+    // var ed = ed.split(',')
+    // for (item of ed) {
+    //     ln.push(parseInt(item)/(10**18))
+    // }
     // console.log("Engineered "+Math.round(ln[0])+" "+"▩".repeat(Math.round(ln[0]/250))+"▦".repeat(Math.round(ln[1]/250))+" "+Math.round(ln[1])+" Dreamy")
     
     //that.innerHTML = "School Sqaud "+Math.round(ln[0])+" "+"▩".repeat(Math.round(ln[0]/250))+"▦".repeat(Math.round(ln[1]/250))+" "+Math.round(ln[1])+" Engineered";
     var rem = await read(remVot)
-    var barLength = await ( 1 - rem / totalVotes ) * 100
+    var barLength1 = ( 1 - rem / totalVotes ) * 100
 
-    if (await barLength < 0) {
-        barLength = 0
+    if (barLength1 < 0) {
+        barLength1 = 0
     }
-    await $('#that').empty().append(`<div style="height:20px;background-color:#555;position:relative">
-    <div style="height:20px;background-color:#6e2cff;width:${ barLength }%">
-</div></div>`)
-
+    $('.gravityResultDiv').empty().append(`<div style="margin: 10px 0px; color: #fff; height: 25px; position:relative; background: linear-gradient(to right, #6e2cff ${barLength1}%, #555 ${barLength1}%)">${comma(totalVotes - rem)}/${comma(totalVotes)} Votes (${barLength1.toFixed(1)}%)</div>`)
+    
+    var currentComo = sum(ln)
+    var barLength2 = currentComo/totalComo*100
+    $('.gravityResultDiv').append(`<div style="margin: 10px 0px 30px; color: #fff; height:25px; position:relative; background: linear-gradient(to right, #6e2cff ${barLength2}%, #555 ${barLength2}%)">${comma(currentComo)}/${comma(totalComo)} COMO (${barLength2.toFixed(1)}%)</div>`)
+    //     await $('.gravityResultDiv').empty().append(`<div style="height:20px;background-color:#555;position:relative">
+    //     <div style="height:20px;background-color:#6e2cff;width:${ barLength }%">
+    // </div></div>`)
+    
+    ln.forEach(element => {
+        var percent = element[1]/ln[0][1]*100
+        $('.gravityResultDiv').append(`<div style="margin: 10px 0px; color: #fff; height:25px; position:relative; background: linear-gradient(to right, #6e2cff ${percent}%, #555 ${percent}%)">${element[0]} ${element[1]} (${(element[1]/totalComo*100).toFixed(1)}%)</div>`)
+    });
     for (i=0; i<candNum; i++) {
-        $('#that').append("<p>"+"■".repeat(Math.round(ln[i]/800))+` ${Math.round(ln[i])} ${candList[i]}</p>`);
+        // Math.round(ln[i])
+        // const barLength2 = ln[i]
+        // $('.gravityResultDiv').append("<p>"+"■".repeat(Math.round(ln[i]/800))+` ${Math.round(ln[i])} ${candList[i]}</p>`);
+        // $('.gravityResultDiv').append("<p>"+"■".repeat(Math.round(ln[i]/800))+` ${Math.round(ln[i])} ${candList[i]}</p>`);
     }
     console.log(sum(ln))
-    if (await rem == 0) {
+    if (rem == 0) {
         let ws = await read(candVot)
         ws = ws.join()
         if (!(l.includes(ws))) {
@@ -218,7 +249,7 @@ async function chart(ed) {
         return b[0] - a[0];
     })
     for (i=0; i<voteList.length; i++) {
-        $('#that').append("<p>"+voteList[i][0]+"<span> "+rawVoteList[voteList[i][1]][1]+"</p>")
+        $('.gravityResultDiv').append("<p>"+voteList[i][0]+"<span> "+rawVoteList[voteList[i][1]][1]+"</p>")
     }
 }*/
 // start()

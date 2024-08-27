@@ -9,6 +9,7 @@ var memberInfo = [
         "order": 1,
         "Snumber": "S1",
         "color": "22aeff",
+        "contrast": "fff",
         "birthday": "030806"
     },
     {
@@ -21,6 +22,7 @@ var memberInfo = [
         "order": 2,
         "Snumber": "S2",
         "color": "9200ff",
+        "contrast": "fff",
         "birthday": "070412"
     },
     {
@@ -33,6 +35,7 @@ var memberInfo = [
         "order": 3,
         "Snumber": "S3",
         "color": "fff800",
+        "contrast": "000",
         "birthday": "051024"
     },
     {
@@ -45,6 +48,7 @@ var memberInfo = [
         "order": 4,
         "Snumber": "S4",
         "color": "98f21d",
+        "contrast": "000",
         "birthday": "041204"
     },
     {
@@ -57,6 +61,7 @@ var memberInfo = [
         "order": 5,
         "Snumber": "S5",
         "color": "db0c74",
+        "contrast": "fff",
         "birthday": "010209"
     },
     {
@@ -69,6 +74,7 @@ var memberInfo = [
         "order": 6,
         "Snumber": "S6",
         "color": "fc83a4",
+        "contrast": "000",
         "birthday": "071003"
     },
     {
@@ -81,6 +87,7 @@ var memberInfo = [
         "order": 7,
         "Snumber": "S7",
         "color": "6799a0",
+        "contrast": "fff",
         "birthday": "021013"
     },
     {
@@ -93,6 +100,7 @@ var memberInfo = [
         "order": 8,
         "Snumber": "S8",
         "color": "ffe3e2",
+        "contrast": "000",
         "birthday": "050203"
     },
     {
@@ -105,6 +113,7 @@ var memberInfo = [
         "order": 9,
         "Snumber": "S9",
         "color": "ffc935",
+        "contrast": "000",
         "birthday": "051220"
     },
     {
@@ -117,6 +126,7 @@ var memberInfo = [
         "order": 10,
         "Snumber": "S10",
         "color": "ff9ad6",
+        "contrast": "000",
         "birthday": "030108"
     },
     {
@@ -129,6 +139,7 @@ var memberInfo = [
         "order": 11,
         "Snumber": "S11",
         "color": "ffde00",
+        "contrast": "000",
         "birthday": "040311"
     },
     {
@@ -141,6 +152,7 @@ var memberInfo = [
         "order": 12,
         "Snumber": "S12",
         "color": "5974ff",
+        "contrast": "fff",
         "birthday": "080108"
     },
     {
@@ -153,6 +165,7 @@ var memberInfo = [
         "order": 13,
         "Snumber": "S13",
         "color": "ff953f",
+        "contrast": "000",
         "birthday": "030602"
     },
     {
@@ -165,6 +178,7 @@ var memberInfo = [
         "order": 14,
         "Snumber": "S14",
         "color": "1222b5",
+        "contrast": "fff",
         "birthday": "021013"
     },
     {
@@ -177,6 +191,7 @@ var memberInfo = [
         "order": 15,
         "Snumber": "S15",
         "color": "d51313",
+        "contrast": "fff",
         "birthday": "020525"
     },
     {
@@ -189,6 +204,7 @@ var memberInfo = [
         "order": 16,
         "Snumber": "S16",
         "color": "fe8e76",
+        "contrast": "000",
         "birthday": "020512"
     },
     {
@@ -201,6 +217,7 @@ var memberInfo = [
         "order": 17,
         "Snumber": "S17",
         "color": "ac62b7",
+        "contrast": "fff",
         "birthday": "060412"
     },
     {
@@ -213,6 +230,7 @@ var memberInfo = [
         "order": 18,
         "Snumber": "S18",
         "color": "b7f54c",
+        "contrast": "000",
         "birthday": "090116"
     },
     {
@@ -225,6 +243,7 @@ var memberInfo = [
         "order": 19,
         "Snumber": "S19",
         "color": "52d9bb",
+        "contrast": "000",
         "birthday": "070801"
     },
     {
@@ -237,6 +256,7 @@ var memberInfo = [
         "order": 20,
         "Snumber": "S20",
         "color": "ff428a",
+        "contrast": "000",
         "birthday": "060403"
     },
     {
@@ -249,6 +269,7 @@ var memberInfo = [
         "order": 21,
         "Snumber": "S21",
         "color": "c7a3e0",
+        "contrast": "000",
         "birthday": "070502"
     },
     {
@@ -261,6 +282,7 @@ var memberInfo = [
         "order": 22,
         "Snumber": "S22",
         "color": "7bba8d",
+        "contrast": "000",
         "birthday": "061130"
     },
     {
@@ -273,6 +295,7 @@ var memberInfo = [
         "order": 23,
         "Snumber": "S23",
         "color": "cff3ff",
+        "contrast": "000",
         "birthday": "100611"
     },
     {
@@ -285,6 +308,7 @@ var memberInfo = [
         "order": 24,
         "Snumber": "S24",
         "color": "ffab62",
+        "contrast": "000",
         "birthday": "040213"
     }
 ]
