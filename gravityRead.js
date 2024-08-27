@@ -215,14 +215,14 @@ async function chart(ed) {
     
     ln.forEach(element => {
         var percent = element[1]/ln[0][1]*100
-        $('.gravityResultDiv').append(`<div style="margin: 10px 0px; color: #fff; height:25px; position:relative; background: linear-gradient(to right, #6e2cff ${percent}%, #555 ${percent}%)">${element[0]} ${element[1]} (${(element[1]/totalComo*100).toFixed(1)}%)</div>`)
+        $('.gravityResultDiv').append(`<div style="margin: 10px 0px; color: #fff; height:25px; position:relative; background: linear-gradient(to right, #6e2cff ${percent}%, #555 ${percent}%)">${element[0]} ${comma(element[1])} (${(element[1]/totalComo*100).toFixed(1)}%)</div>`)
     });
-    for (i=0; i<candNum; i++) {
+    // for (i=0; i<candNum; i++) {
         // Math.round(ln[i])
         // const barLength2 = ln[i]
         // $('.gravityResultDiv').append("<p>"+"■".repeat(Math.round(ln[i]/800))+` ${Math.round(ln[i])} ${candList[i]}</p>`);
         // $('.gravityResultDiv').append("<p>"+"■".repeat(Math.round(ln[i]/800))+` ${Math.round(ln[i])} ${candList[i]}</p>`);
-    }
+    // }
     console.log(sum(ln))
     if (rem == 0) {
         let ws = await read(candVot)
