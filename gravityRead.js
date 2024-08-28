@@ -7,6 +7,7 @@ var breakOn = false;
 var address;
 var mylist;
 var voteFinish = false;
+var totalComo = 1;
 
 //var r = new Array(candNum).fill('0');
 
@@ -149,7 +150,8 @@ async function start() {
         if (endDt < dt) {
             clearInterval(intervalId1)
             totalVotes = await read(totVot)
-            totalComo = Math.round(pollInfo.totalVotedCOMO/10**18)
+            var asvd = await read(polls)
+            totalComo = Math.round(asvd.totalVotedCOMO/10**18)
             voteFinish = true
         }
     },100)
