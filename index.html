@@ -22,6 +22,7 @@
     <script src="./birthday2json.js"></script>
     <script src="./totalComo.js"></script>
     <script src="./member.js"></script>
+    <script src="./emptymember.js"></script>
   </head>
   <body>
     <div class="grid">
@@ -104,6 +105,13 @@
         <button onclick="showImg(input('image-url'))">실행</button>
         <button onclick="document.querySelector('#image-url').value = ''">리셋</button>
         <br><span style="color:#999;font-size: 0.8em;">Tip. 파일 확장자명을 강제로 변경하여도 사진이 깨지지 않음.</span>
+      </div>
+      <div class="wrapper grid-block">
+        <p>없는 멤버 찾기</p>
+        <div style="display: flex; text-wrap: nowrap;">
+          <span>있는 멤버 : </span><input type="text" id="existMember" style="width: 100%;"><button onclick="exist()">실행</button>
+        </div>
+        <!-- <br><span>날짜 입력 : </span><input type="text" id="yymmdd" placeholder="YYMMDD"><button onclick="searchByDate()">실행</button> -->
       </div>
     </div>
     <hr>
