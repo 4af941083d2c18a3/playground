@@ -536,7 +536,7 @@ var memberInfo = [
         "order": 20,
         "Snumber": "S20",
         "color": "ff428a",
-        "contrast": "000",
+        "contrast": "fff",
         "birthday": "060403"
     },
     {
