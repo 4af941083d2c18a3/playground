@@ -18,7 +18,7 @@ function comma(num) {
 
 function gravityResult(pollResult) {
   for (item of pollResult) {
-    item.votesInt = parseInt( parseInt(item.votes) / 10**18 )
+    item.votesInt = Math.round( parseInt(item.votes) / 10**18 )
   }
   
   pollResult.sort(

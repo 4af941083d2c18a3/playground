@@ -42,7 +42,7 @@ async function progressByCount(unit, array, accumulate) {
     for (j=0; j<Math.ceil(await array.length/unit); j++) {
         for (i=0; i<Math.min(unit,array.length-unit*j); i++) {
             const seeing = array[unit*j + i].node
-            votes[seeing.candidate] += parseInt(parseInt(seeing.amount)/(10**18))
+            votes[seeing.candidate] += Math.round(parseInt(seeing.amount)/(10**18))
         }
         csv += `\n${Math.min(unit*j+unit,array.length)},${votes.join()}`
 
@@ -79,7 +79,7 @@ async function progressByTime(unit, array, accumulate) {
             }
             sectionList.shift()
         }
-        votes[seeing.candidate] += parseInt(parseInt(seeing.amount)/(10**18))
+        votes[seeing.candidate] += Math.round(parseInt(seeing.amount)/(10**18))
     }
     csv += `\n${(parseInt(pollInfo.due) - parseInt(pollInfo.startAt))/60},${votes.join()}`
 
