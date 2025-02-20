@@ -2,12 +2,12 @@ var pollid;
 var candList;
 var candNum;
 var totalVotes;
-var intervalId;
+var intervalId=0;
 var breakOn = false;
 var address;
 var mylist;
 var voteFinish = false;
-var totalComo = 1;
+var totalComo = 0;
 
 //var r = new Array(candNum).fill('0');
 
@@ -71,28 +71,28 @@ var myinstance = [
 
 
 // [
-    //     {"anonymous":false,"inputs":[{"indexed":true,"internalType":"uint256","name":"pollId","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"burned","type":"uint256"}],"name":"Finalized","type":"event"},
-    //     {"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint8","name":"version","type":"uint8"}],"name":"Initialized","type":"event"},
-    //     {"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"pollId","type":"uint256"}],"name":"PollCreated","type":"event"},
-    //     {"anonymous":false,"inputs":[{"indexed":true,"internalType":"uint256","name":"pollId","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"revealedVotes","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"remainingVotes","type":"uint256"}],"name":"Revealed","type":"event"},
-    //     {"anonymous":false,"inputs":[{"indexed":true,"internalType":"bytes32","name":"role","type":"bytes32"},{"indexed":true,"internalType":"bytes32","name":"previousAdminRole","type":"bytes32"},{"indexed":true,"internalType":"bytes32","name":"newAdminRole","type":"bytes32"}],"name":"RoleAdminChanged","type":"event"},
-    //     {"anonymous":false,"inputs":[{"indexed":true,"internalType":"bytes32","name":"role","type":"bytes32"},{"indexed":true,"internalType":"address","name":"account","type":"address"},{"indexed":true,"internalType":"address","name":"sender","type":"address"}],"name":"RoleGranted","type":"event"},
-    //     {"anonymous":false,"inputs":[{"indexed":true,"internalType":"bytes32","name":"role","type":"bytes32"},{"indexed":true,"internalType":"address","name":"account","type":"address"},{"indexed":true,"internalType":"address","name":"sender","type":"address"}],"name":"RoleRevoked","type":"event"},
-    //     {"anonymous":false,"inputs":[{"indexed":true,"internalType":"uint256","name":"pollId","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"voteIndex","type":"uint256"},{"indexed":false,"internalType":"address","name":"voter","type":"address"},{"indexed":false,"internalType":"uint256","name":"comoAmount","type":"uint256"},{"indexed":false,"internalType":"bytes32","name":"hash","type":"bytes32"}],"name":"Voted","type":"event"},
-    //     {"inputs":[],"name":"DEFAULT_ADMIN_ROLE","outputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"stateMutability":"view","type":"function"},
-    //     {"inputs":[],"name":"OPERATOR_ROLE","outputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"stateMutability":"view","type":"function"},
-    //     ▶{"inputs":[{"internalType":"uint256","name":"pollId","type":"uint256"}],"name":"candidates","outputs":[{"internalType":"string[]","name":"","type":"string[]"}],"stateMutability":"view","type":"function"},
-    //     {"inputs":[],"name":"comoContract","outputs":[{"internalType":"contract IERC777Upgradeable","name":"","type":"address"}],"stateMutability":"view","type":"function"},
-    //     {"inputs":[{"internalType":"string","name":"title_","type":"string"},{"internalType":"string[]","name":"candidates_","type":"string[]"},{"internalType":"uint256","name":"startAt_","type":"uint256"},{"internalType":"uint256","name":"due_","type":"uint256"},{"internalType":"uint256","name":"minimumCOMO_","type":"uint256"}],"name":"createPoll","outputs":[],"stateMutability":"nonpayable","type":"function"},
-    //     {"inputs":[{"internalType":"uint256","name":"pollId","type":"uint256"}],"name":"finalize","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"bytes32","name":"role","type":"bytes32"}],"name":"getRoleAdmin","outputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"stateMutability":"view","type":"function"},
-    //     {"inputs":[{"internalType":"bytes32","name":"role","type":"bytes32"},{"internalType":"address","name":"account","type":"address"}],"name":"grantRole","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"bytes32","name":"role","type":"bytes32"},{"internalType":"address","name":"account","type":"address"}],"name":"hasRole","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},
-    //     {"inputs":[{"internalType":"uint256","name":"","type":"uint256"},{"internalType":"bytes32","name":"","type":"bytes32"}],"name":"hashes","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},
-    //     {"inputs":[{"internalType":"address","name":"voteSignerAddress_","type":"address"},{"internalType":"address","name":"comoAddress_","type":"address"}],"name":"initialize","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"pollId","type":"uint256"}],"name":"isInProgress","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},
-    //     {"inputs":[{"internalType":"uint256","name":"","type":"uint256"},{"internalType":"uint256","name":"","type":"uint256"}],"name":"isRevealedVote","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},
-    //     ▶{"inputs":[{"internalType":"uint256","name":"pollId","type":"uint256"}],"name":"pollResult","outputs":[{"components":[{"internalType":"string","name":"candidate","type":"string"},{"internalType":"uint256","name":"votes","type":"uint256"}],"internalType":"struct Governor.Tally[]","name":"","type":"tuple[]"}],"stateMutability":"view","type":"function"},
-    //     ▶{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"polls","outputs":[{"internalType":"string","name":"title","type":"string"},{"internalType":"uint256","name":"startAt","type":"uint256"},{"internalType":"uint256","name":"due","type":"uint256"},{"internalType":"uint256","name":"minimumCOMO","type":"uint256"},{"internalType":"uint256","name":"totalVotedCOMO","type":"uint256"},{"internalType":"uint256","name":"revealedVotes","type":"uint256"},{"internalType":"bool","name":"finalized","type":"bool"}],"stateMutability":"view","type":"function"},
-    //     ▶{"inputs":[{"internalType":"uint256","name":"pollId","type":"uint256"}],"name":"remainingVotes","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},
-    //     {"inputs":[{"internalType":"bytes32","name":"role","type":"bytes32"},{"internalType":"address","name":"account","type":"address"}],"name":"renounceRole","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"pollId","type":"uint256"},{"internalType":"uint256","name":"missingOffset","type":"uint256"},{"components":[{"internalType":"uint256","name":"comoAmount","type":"uint256"},{"internalType":"bytes32","name":"hash","type":"bytes32"}],"internalType":"struct Governor.CommitData[]","name":"missingCommitData","type":"tuple[]"}],"name":"reset","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"pollId","type":"uint256"},{"components":[{"internalType":"uint256","name":"votedCandidateId","type":"uint256"},{"internalType":"bytes32","name":"salt","type":"bytes32"}],"internalType":"struct Governor.RevealData[]","name":"data","type":"tuple[]"},{"internalType":"uint256","name":"offset","type":"uint256"}],"name":"reveal","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"bytes32","name":"role","type":"bytes32"},{"internalType":"address","name":"account","type":"address"}],"name":"revokeRole","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"addr","type":"address"}],"name":"setVoteSignerAddress","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"bytes4","name":"interfaceId","type":"bytes4"}],"name":"supportsInterface","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},
+//     {"anonymous":false,"inputs":[{"indexed":true,"internalType":"uint256","name":"pollId","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"burned","type":"uint256"}],"name":"Finalized","type":"event"},
+//     {"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint8","name":"version","type":"uint8"}],"name":"Initialized","type":"event"},
+//     {"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"pollId","type":"uint256"}],"name":"PollCreated","type":"event"},
+//     {"anonymous":false,"inputs":[{"indexed":true,"internalType":"uint256","name":"pollId","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"revealedVotes","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"remainingVotes","type":"uint256"}],"name":"Revealed","type":"event"},
+//     {"anonymous":false,"inputs":[{"indexed":true,"internalType":"bytes32","name":"role","type":"bytes32"},{"indexed":true,"internalType":"bytes32","name":"previousAdminRole","type":"bytes32"},{"indexed":true,"internalType":"bytes32","name":"newAdminRole","type":"bytes32"}],"name":"RoleAdminChanged","type":"event"},
+//     {"anonymous":false,"inputs":[{"indexed":true,"internalType":"bytes32","name":"role","type":"bytes32"},{"indexed":true,"internalType":"address","name":"account","type":"address"},{"indexed":true,"internalType":"address","name":"sender","type":"address"}],"name":"RoleGranted","type":"event"},
+//     {"anonymous":false,"inputs":[{"indexed":true,"internalType":"bytes32","name":"role","type":"bytes32"},{"indexed":true,"internalType":"address","name":"account","type":"address"},{"indexed":true,"internalType":"address","name":"sender","type":"address"}],"name":"RoleRevoked","type":"event"},
+//     {"anonymous":false,"inputs":[{"indexed":true,"internalType":"uint256","name":"pollId","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"voteIndex","type":"uint256"},{"indexed":false,"internalType":"address","name":"voter","type":"address"},{"indexed":false,"internalType":"uint256","name":"comoAmount","type":"uint256"},{"indexed":false,"internalType":"bytes32","name":"hash","type":"bytes32"}],"name":"Voted","type":"event"},
+//     {"inputs":[],"name":"DEFAULT_ADMIN_ROLE","outputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"stateMutability":"view","type":"function"},
+//     {"inputs":[],"name":"OPERATOR_ROLE","outputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"stateMutability":"view","type":"function"},
+//     ▶{"inputs":[{"internalType":"uint256","name":"pollId","type":"uint256"}],"name":"candidates","outputs":[{"internalType":"string[]","name":"","type":"string[]"}],"stateMutability":"view","type":"function"},
+//     {"inputs":[],"name":"comoContract","outputs":[{"internalType":"contract IERC777Upgradeable","name":"","type":"address"}],"stateMutability":"view","type":"function"},
+//     {"inputs":[{"internalType":"string","name":"title_","type":"string"},{"internalType":"string[]","name":"candidates_","type":"string[]"},{"internalType":"uint256","name":"startAt_","type":"uint256"},{"internalType":"uint256","name":"due_","type":"uint256"},{"internalType":"uint256","name":"minimumCOMO_","type":"uint256"}],"name":"createPoll","outputs":[],"stateMutability":"nonpayable","type":"function"},
+//     {"inputs":[{"internalType":"uint256","name":"pollId","type":"uint256"}],"name":"finalize","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"bytes32","name":"role","type":"bytes32"}],"name":"getRoleAdmin","outputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"stateMutability":"view","type":"function"},
+//     {"inputs":[{"internalType":"bytes32","name":"role","type":"bytes32"},{"internalType":"address","name":"account","type":"address"}],"name":"grantRole","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"bytes32","name":"role","type":"bytes32"},{"internalType":"address","name":"account","type":"address"}],"name":"hasRole","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},
+//     {"inputs":[{"internalType":"uint256","name":"","type":"uint256"},{"internalType":"bytes32","name":"","type":"bytes32"}],"name":"hashes","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},
+//     {"inputs":[{"internalType":"address","name":"voteSignerAddress_","type":"address"},{"internalType":"address","name":"comoAddress_","type":"address"}],"name":"initialize","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"pollId","type":"uint256"}],"name":"isInProgress","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},
+//     {"inputs":[{"internalType":"uint256","name":"","type":"uint256"},{"internalType":"uint256","name":"","type":"uint256"}],"name":"isRevealedVote","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},
+//     ▶{"inputs":[{"internalType":"uint256","name":"pollId","type":"uint256"}],"name":"pollResult","outputs":[{"components":[{"internalType":"string","name":"candidate","type":"string"},{"internalType":"uint256","name":"votes","type":"uint256"}],"internalType":"struct Governor.Tally[]","name":"","type":"tuple[]"}],"stateMutability":"view","type":"function"},
+//     ▶{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"polls","outputs":[{"internalType":"string","name":"title","type":"string"},{"internalType":"uint256","name":"startAt","type":"uint256"},{"internalType":"uint256","name":"due","type":"uint256"},{"internalType":"uint256","name":"minimumCOMO","type":"uint256"},{"internalType":"uint256","name":"totalVotedCOMO","type":"uint256"},{"internalType":"uint256","name":"revealedVotes","type":"uint256"},{"internalType":"bool","name":"finalized","type":"bool"}],"stateMutability":"view","type":"function"},
+//     ▶{"inputs":[{"internalType":"uint256","name":"pollId","type":"uint256"}],"name":"remainingVotes","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},
+//     {"inputs":[{"internalType":"bytes32","name":"role","type":"bytes32"},{"internalType":"address","name":"account","type":"address"}],"name":"renounceRole","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"pollId","type":"uint256"},{"internalType":"uint256","name":"missingOffset","type":"uint256"},{"components":[{"internalType":"uint256","name":"comoAmount","type":"uint256"},{"internalType":"bytes32","name":"hash","type":"bytes32"}],"internalType":"struct Governor.CommitData[]","name":"missingCommitData","type":"tuple[]"}],"name":"reset","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"pollId","type":"uint256"},{"components":[{"internalType":"uint256","name":"votedCandidateId","type":"uint256"},{"internalType":"bytes32","name":"salt","type":"bytes32"}],"internalType":"struct Governor.RevealData[]","name":"data","type":"tuple[]"},{"internalType":"uint256","name":"offset","type":"uint256"}],"name":"reveal","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"bytes32","name":"role","type":"bytes32"},{"internalType":"address","name":"account","type":"address"}],"name":"revokeRole","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"addr","type":"address"}],"name":"setVoteSignerAddress","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"bytes4","name":"interfaceId","type":"bytes4"}],"name":"supportsInterface","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},
 //     ▶{"inputs":[{"internalType":"address","name":"operator","type":"address"},{"internalType":"address","name":"from","type":"address"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"},{"internalType":"bytes","name":"userData","type":"bytes"},{"internalType":"bytes","name":"operatorData","type":"bytes"}],"name":"tokensReceived","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"pollId","type":"uint256"}],"name":"totalVotes","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},
 //     {"inputs":[{"internalType":"uint256","name":"","type":"uint256"},{"internalType":"address","name":"","type":"address"},{"internalType":"uint256","name":"","type":"uint256"}],"name":"userVoteResults","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},
 //     {"inputs":[],"name":"voteSignerAddress","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},
@@ -106,11 +106,12 @@ function p(l) {
 }
 
 function sum(array) {
-    // var s = 0
-    // for (i=0;i<candNum;i++) {
-    //     s += array[i]
-    // }
-    return eval(array.map(v=>v[1]).join("+"))
+    var s = 0
+    for (i=0;i<array.length;i++) {
+        s += array[i].como
+    }
+    return s
+    // return eval(array.map(v=>v[1]).join("+"))
 }
 
 async function read(item) {
@@ -130,12 +131,54 @@ async function variableSetting() {
         mylist = await new new Web3Eth(new Web3HttpProvider("https://polygon-rpc.com")).Contract(myinstance,address).methods;
         candList = await read(cand);
         candList = candList.map(v=>{return v.replaceAll('\b','')})
+        // console.log(123)
         candNum = await candList.length;
         totalVotes = await read(totVot)
     }
 }
 
 async function start() {
+    async function chart(vpc) {
+        // console.log(candElements)
+        candElements.forEach(o=>o.como=Math.round(vpc[o.index]/10**18))
+        const sortedCands = candElements.sort((x,y)=>y.como-x.como)
+        sortedCands.forEach((o,rank)=>{
+            var percent = o.como/sortedCands[0].como*100
+            o.element.style.transform=`translateY(${(rank-o.index)*35}px)`
+            o.element.querySelector('div').style.width=`${percent}%`
+            o.element.querySelector('span').innerText=`${o.name} ${o.como.toLocaleString()} (${totalComo?(o.como/totalComo*100).toFixed(1):'0.0'}%)`
+        })
+    
+        var rem = 1000
+        // var rem = await read(remVot)
+        var barLength1 = ( 1 - rem / totalVotes ) * 100
+        if (barLength1 < 0) {
+            barLength1 = 0
+        }
+        votesProgress.querySelector('div').style.width = `${barLength1}%`
+        votesProgress.querySelector('span').innerText = `${(totalVotes - rem).toLocaleString()}/${parseInt(totalVotes).toLocaleString()} Votes (${barLength1.toFixed(1)}%)`
+        
+        var currentComo = sum(candElements)
+        var barLength2 = totalComo?currentComo/totalComo*100:0
+        comoProgress.querySelector('div').style.width = `${barLength2}%`
+        comoProgress.querySelector('span').innerText = `${currentComo.toLocaleString()}/${totalComo.toLocaleString()} COMO (${barLength2.toFixed(1)}%)`
+        
+        var guaranteed = Math.floor((totalComo-currentComo-sortedCands[0].como+sortedCands[1].como)/2+1)
+        if (guaranteed>0) guaranteeProgress.innerText = `${sortedCands[0].name}의 당선 확정까지 남은 COMO : ${Math.max(guaranteed,0)}`
+        else guaranteeProgress.innerText = `${sortedCands[0].name} 당선`
+        
+        // console.log(sum(ln))
+        if (currentComo >= totalComo && totalComo) {
+            // let ws = await read(candVot)
+            // ws = ws.join()
+            stop()
+        }
+    }
+
+    if (intervalId) {
+        clearInterval(intervalId)
+        intervalId = 0
+    }
     $('#status').text('집계 중')
     await variableSetting()
     if (breakOn) {
@@ -155,87 +198,78 @@ async function start() {
             voteFinish = true
         }
     },100)
-    l=[]
-    intervalId = setInterval(() => lpush(), 2000);
+    // l=[]
+    const gravityResultDiv = document.createElement('div')
+    gravityResultDiv.classList.add('gravityResultDiv')
+    $('#that').empty().append(gravityResultDiv)
+
+    const votesProgress = document.createElement('div')
+    const comoProgress = document.createElement('div')
+    const guaranteeProgress = document.createElement('div')
+    const voteSpan = document.createElement('span')
+    const voteBar = document.createElement('div')
+    const comoSpan = document.createElement('span')
+    const comoBar = document.createElement('div')
+    votesProgress.classList.add('gravityLine')
+    comoProgress.classList.add('gravityLine')
+    voteSpan.innerText=`0/${totalVotes.toLocaleString()} Votes (0.0%)`
+    votesProgress.append(voteSpan,voteBar)
+    comoProgress.style.marginBottom='30px'
+    comoSpan.innerText=`0/${totalComo.toLocaleString()} COMO (0.0%)`
+    comoProgress.append(comoSpan,comoBar)
+    guaranteeProgress.style.backgroundColor='transparent'
+    guaranteeProgress.classList.add('gravityLine')
+    gravityResultDiv.append(votesProgress,comoProgress,guaranteeProgress)
+    const candElements=candList.map((c,index)=>(
+        {
+            "index":index,
+            "name":c,
+            "element":document.createElement('div')
+        }
+    ))
+    // console.log(456)
+    candElements.forEach(o=>{
+        const span = document.createElement('span')
+        const bar = document.createElement('div')
+        span.innerText = `${o.name} 0 (0.0%)`
+        // bar.style.backgroundColor="#6e2cff"
+        // bar.style.width="0%"
+        // bar.classList.add('gravity-bar')
+        o.element.style.backgroundColor="#555"
+        o.element.classList.add("gravityLine","gravity-candidate")
+        o.element.append(span,bar)
+        gravityResultDiv.append(o.element)
+    })
+    vpc = new Array(7).fill(10**19)
+    intervalId = setInterval(async () => {
+        if (!voteFinish) {return undefined}
+        // var vpc = await read(candVot)
+        chart(vpc)
+    }, 2000);
 }
 
-async function lpush() {
-    if (!voteFinish) {return undefined}
-    var ws = await read(candVot)
-    // ws = ws.join()
-    if (!(l.includes(ws.join()))) {
-        l.push(ws.join())
-    }
+// async function lpush() {
+//     if (!voteFinish) {return undefined}
+//     var ws = await read(candVot)
 
-    chart(ws)
-}
+//     chart(ws)
+// }
 
 function stop() {
     if (intervalId) {
         clearInterval(intervalId)
         intervalId = 0
         $('#status').text('대기 중')
-        $('#that').append("<hr>")
+        // $('#that').append("<hr>")
         // for (item of l) {
         //     $('#that').append(`<pre>${item}</p>`)
         // }
-        $('#that').append(`<pre>${l.join('\n')}</pre>`)
+        // $('#that').append(`<pre>${l.join('\n')}</pre>`)
     } else {
         alert('집계 중이지 않습니다.')
     }
 }
 
-async function chart(ed) {
-    $('#that').empty().append('<div style="background:black;color:#fff" class="gravityResultDiv"></div>')
-    var ln = candList.map(v=>{
-        var index = candList.indexOf(v)
-        var count = Math.round(ed[index]/10**18)
-        return [v,count]
-    }).sort((x,y)=>y[1]-x[1])
-    // ed.map(v=>{return Math.round(v/10**18)})
-    // var ed = ed.split(',')
-    // for (item of ed) {
-    //     ln.push(parseInt(item)/(10**18))
-    // }
-    // console.log("Engineered "+Math.round(ln[0])+" "+"▩".repeat(Math.round(ln[0]/250))+"▦".repeat(Math.round(ln[1]/250))+" "+Math.round(ln[1])+" Dreamy")
-    
-    //that.innerHTML = "School Sqaud "+Math.round(ln[0])+" "+"▩".repeat(Math.round(ln[0]/250))+"▦".repeat(Math.round(ln[1]/250))+" "+Math.round(ln[1])+" Engineered";
-    var rem = await read(remVot)
-    var barLength1 = ( 1 - rem / totalVotes ) * 100
-
-    if (barLength1 < 0) {
-        barLength1 = 0
-    }
-    $('.gravityResultDiv').empty().append(`<div style="margin: 10px 0px; color: #fff; height: 25px; position:relative; background: linear-gradient(to right, #6e2cff ${barLength1}%, #555 ${barLength1}%)">${comma(totalVotes - rem)}/${comma(totalVotes)} Votes (${barLength1.toFixed(1)}%)</div>`)
-    
-    var currentComo = sum(ln)
-    var barLength2 = currentComo/totalComo*100
-    $('.gravityResultDiv').append(`<div style="margin: 10px 0px 30px; color: #fff; height:25px; position:relative; background: linear-gradient(to right, #6e2cff ${barLength2}%, #555 ${barLength2}%)">${comma(currentComo)}/${comma(totalComo)} COMO (${barLength2.toFixed(1)}%)</div>`)
-    //     await $('.gravityResultDiv').empty().append(`<div style="height:20px;background-color:#555;position:relative">
-    //     <div style="height:20px;background-color:#6e2cff;width:${ barLength }%">
-    // </div></div>`)
-    
-    ln.forEach(element => {
-        var percent = element[1]/ln[0][1]*100
-        $('.gravityResultDiv').append(`<div style="margin: 10px 0px; color: #fff; height:25px; position:relative; background: linear-gradient(to right, #6e2cff ${percent}%, #555 ${percent}%)">${element[0]} ${comma(element[1])} (${(element[1]/totalComo*100).toFixed(1)}%)</div>`)
-    });
-    // for (i=0; i<candNum; i++) {
-        // Math.round(ln[i])
-        // const barLength2 = ln[i]
-        // $('.gravityResultDiv').append("<p>"+"■".repeat(Math.round(ln[i]/800))+` ${Math.round(ln[i])} ${candList[i]}</p>`);
-        // $('.gravityResultDiv').append("<p>"+"■".repeat(Math.round(ln[i]/800))+` ${Math.round(ln[i])} ${candList[i]}</p>`);
-    // }
-    console.log(sum(ln))
-    if (rem == 0) {
-        let ws = await read(candVot)
-        ws = ws.join()
-        if (!(l.includes(ws))) {
-            l.push(ws)
-        }
-        stop()
-    }
-    //후보당 4만~5만 정도 득표할 때 사용하기 좋은 상태.
-}
 
 /*function topRank() {
     var rawVoteList = read(listVot,pollid);

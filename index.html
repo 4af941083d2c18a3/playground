@@ -5,6 +5,7 @@
     <script src="https://polygonscan.com/assets/js/custom/web3-eth.min.js?v=23.7.4.1"></script>
     <script src="https://polygonscan.com//assets/js/custom/web3-providers-http.min.js?v=23.7.4.1"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script> -->
     <script>
       function input(id) {return $('#'+id).val()}
       function showImg(url) {
@@ -20,7 +21,7 @@
     <script src="./gravityProgress.js"></script>
     <script src="./schedule2json.js"></script>
     <script src="./birthday2json.js"></script>
-    <script src="./totalComo.js"></script>
+    <!-- <script src="./totalComo.js"></script> -->
     <script src="./member.js"></script>
     <script src="./emptymember.js"></script>
   </head>
@@ -175,6 +176,35 @@
         padding: 5px;
         font-family: Consolas;
         white-space: pre-wrap;
+      }
+      .gravityResultDiv {
+        background:black;
+        color:#fff;
+      }
+      .gravityLine {
+        margin: 10px 0px;
+        color: #fff;
+        height:25px;
+        background-color: #555;
+        display: flex;
+        align-items: center;
+        /* position:relative; */
+        /* background: #000; */
+      }
+      .gravity-candidate {
+        transition: transform ease 0.5s;
+        transform: translateY(0);
+      }
+      .gravityLine span {
+        z-index: 1;
+        text-wrap: nowrap;
+      }
+      .gravityLine div {
+        transition: width ease 0.5s;
+        width: 0%;
+        height: 25px;
+        position: absolute;
+        background-color: #6e2cff;
       }
     </style>
   </body>

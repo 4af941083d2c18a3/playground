@@ -1,11 +1,12 @@
 function comma(num) {
-  var numString = String(num)
-  var len = numString.length
-  var fregments = []
-  for (i=0;i<len;i+=3) {
-    fregments.unshift(numString.slice(-3-i,len-i))
-  }
-  var freg = fregments.join()
+  return num.toLocaleString('ko-KR')
+  // var numString = String(num)
+  // var len = numString.length
+  // var fregments = []
+  // for (i=0;i<len;i+=3) {
+  //   fregments.unshift(numString.slice(-3-i,len-i))
+  // }
+  // var freg = fregments.join()
   // if (numString.length < 4) {
   //   var freg = numString
   // } else if (numString.length < 7) {
@@ -13,7 +14,7 @@ function comma(num) {
   // } else {
   //   var freg = [numString.slice(0,-6),numString.slice(-6,-3),numString.slice(-3)].join()
   // }
-  return freg
+  // return freg
 }
 
 function gravityResult(pollResult) {
