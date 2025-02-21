@@ -149,8 +149,8 @@ async function start() {
             o.element.querySelector('span').innerText=`${o.name} ${o.como.toLocaleString()} (${totalComo?(o.como/totalComo*100).toFixed(1):'0.0'}%)`
         })
     
-        var rem = 1000
-        // var rem = await read(remVot)
+        // var rem = 1000
+        var rem = await read(remVot)
         var barLength1 = ( 1 - rem / totalVotes ) * 100
         if (barLength1 < 0) {
             barLength1 = 0
@@ -240,10 +240,11 @@ async function start() {
         o.element.append(span,bar)
         gravityResultDiv.append(o.element)
     })
-    vpc = new Array(7).fill(10**19)
+    // vpc = new Array(7).fill(10**19)
+    // vpc 
     intervalId = setInterval(async () => {
         if (!voteFinish) {return undefined}
-        // var vpc = await read(candVot)
+        var vpc = await read(candVot)
         chart(vpc)
     }, 2000);
 }
