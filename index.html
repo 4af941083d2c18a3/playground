@@ -95,9 +95,10 @@
         <input id="birth-end" placeholder="endDate" tabindex="12">
         <input id="birth-name" placeholder="name" tabindex="13">
         <input id="birth-address" placeholder="address" tabindex="14">
-        <input id="birth-kakao" placeholder="kakao" tabindex="15">
-        <input id="birth-google" placeholder="google" tabindex="16">
-        <input id="birth-naver" placeholder="naver" tabindex="17">
+        <input id="birth-embed" placeholder="embed" tabindex="15">
+        <input id="birth-kakao" placeholder="kakao" tabindex="16">
+        <input id="birth-google" placeholder="google" tabindex="17">
+        <input id="birth-naver" placeholder="naver" tabindex="18">
         <button onclick="birth2json()">실행</button>
         <button onclick="birthReset()">리셋</button>
       </div>
@@ -188,12 +189,15 @@
         background-color: #555;
         display: flex;
         align-items: center;
+        position: relative;
         /* position:relative; */
         /* background: #000; */
       }
       .gravity-candidate {
-        transition: transform ease 0.5s;
+        transition: transform ease;
+        transition-duration: 0s;
         transform: translateY(0);
+        /* transition-duration 0.5s -> transform 변경 -> transition-duration 0s -> transform 변경 -> element 순서 수정 */
       }
       .gravityLine span {
         z-index: 1;

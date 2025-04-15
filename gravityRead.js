@@ -140,28 +140,50 @@ async function variableSetting() {
 async function start() {
     async function chart(vpc) {
         // console.log(candElements)
-        candElements.forEach(o=>o.como=Math.round(vpc[o.index]/10**18))
+        candElements.forEach(o=>{
+            const tempcomo=Math.round(vpc[o.index]/10**18)
+            if (tempcomo > o.prevComo) o.como = tempcomo
+            o.prevComo = tempcomo
+        })
         const sortedCands = candElements.sort((x,y)=>y.como-x.como)
         sortedCands.forEach((o,rank)=>{
+            // if (o.como < o.prevComo) return 0
             var percent = o.como/sortedCands[0].como*100
-            o.element.style.transform=`translateY(${(rank-o.index)*35}px)`
+            o.element.style.transitionDuration='0.5s'
+            o.element.style.transform=`translateY(${(rank-o.currRank)*35}px)`
+            o.currRank=rank
             o.element.querySelector('div').style.width=`${percent}%`
             o.element.querySelector('span').innerText=`${o.name} ${o.como.toLocaleString()} (${totalComo?(o.como/totalComo*100).toFixed(1):'0.0'}%)`
         })
+        setTimeout(()=>{
+            sortedCands.forEach(i=>{
+                const e=i.element
+                e.style.transitionDuration='0s'
+                e.style.transform='translateY(0px)'
+                e.parentElement.appendChild(e)
+            })
+        },510)
     
         // var rem = 1000
         var rem = await read(remVot)
-        var barLength1 = ( 1 - rem / totalVotes ) * 100
-        if (barLength1 < 0) {
-            barLength1 = 0
+        console.log(rem,prevRem)
+        if (rem == prevRem-100) {
+            var barLength1 = ( 1 - rem / totalVotes ) * 100
+            if (barLength1 < 0) {
+                barLength1 = 0
+            }
+            prevRem = rem
+            votesProgress.querySelector('div').style.width = `${barLength1}%`
+            votesProgress.querySelector('span').innerText = `${(totalVotes - rem).toLocaleString()}/${parseInt(totalVotes).toLocaleString()} Votes (${barLength1.toFixed(1)}%)`
         }
-        votesProgress.querySelector('div').style.width = `${barLength1}%`
-        votesProgress.querySelector('span').innerText = `${(totalVotes - rem).toLocaleString()}/${parseInt(totalVotes).toLocaleString()} Votes (${barLength1.toFixed(1)}%)`
         
         var currentComo = sum(candElements)
-        var barLength2 = totalComo?currentComo/totalComo*100:0
-        comoProgress.querySelector('div').style.width = `${barLength2}%`
-        comoProgress.querySelector('span').innerText = `${currentComo.toLocaleString()}/${totalComo.toLocaleString()} COMO (${barLength2.toFixed(1)}%)`
+        if (currentComo > prevTotal) {
+            prevTotal = currentComo
+            var barLength2 = totalComo?currentComo/totalComo*100:0
+            comoProgress.querySelector('div').style.width = `${barLength2}%`
+            comoProgress.querySelector('span').innerText = `${currentComo.toLocaleString()}/${totalComo.toLocaleString()} COMO (${barLength2.toFixed(1)}%)`
+        }
         
         var guaranteed = Math.floor((totalComo-currentComo-sortedCands[0].como+sortedCands[1].como)/2+1)
         if (guaranteed>0) guaranteeProgress.innerText = `${sortedCands[0].name}의 당선 확정까지 남은 COMO : ${Math.max(guaranteed,0)}`
@@ -199,6 +221,8 @@ async function start() {
         }
     },100)
     // l=[]
+    var prevRem = parseInt(await read(remVot)) + 100
+    var prevTotal = 0
     const gravityResultDiv = document.createElement('div')
     gravityResultDiv.classList.add('gravityResultDiv')
     $('#that').empty().append(gravityResultDiv)
@@ -212,7 +236,7 @@ async function start() {
     const comoBar = document.createElement('div')
     votesProgress.classList.add('gravityLine')
     comoProgress.classList.add('gravityLine')
-    voteSpan.innerText=`0/${totalVotes.toLocaleString()} Votes (0.0%)`
+    voteSpan.innerText=`0/${parseInt(totalVotes).toLocaleString()} Votes (0.0%)`
     votesProgress.append(voteSpan,voteBar)
     comoProgress.style.marginBottom='30px'
     comoSpan.innerText=`0/${totalComo.toLocaleString()} COMO (0.0%)`
@@ -223,8 +247,10 @@ async function start() {
     const candElements=candList.map((c,index)=>(
         {
             "index":index,
+            "currRank": index,
             "name":c,
-            "element":document.createElement('div')
+            "element":document.createElement('div'),
+            "prevComo": 0
         }
     ))
     // console.log(456)
