@@ -58,11 +58,11 @@ function image(data) {
 //     // <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3165.219415701337!2d127.05232127570955!3d37.50274282778391!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357ca410c04181a3%3A0xaa2c15db7357dab4!2z66CI7J207Ja07Iqk7Yqc65SU7Jik!5e0!3m2!1sko!2skr!4v1710645529107!5m2!1sko!2skr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 // }
 
-// function kakao(data) {
-//     if (!data) {return ''}
-//     var obj = JSON.parse(data.split('daum.roughmap.Lander(')[1].split(').render();')[0])
-//     return {"timestamp":obj.timestamp,"key":obj.key}
-// }
+function kakao(data) {
+    if (!data) {return ''}
+    var obj = JSON.parse(data.split('daum.roughmap.Lander(')[1].split(').render();')[0])
+    return {"timestamp":obj.timestamp,"key":obj.key}
+}
 
 function tag(data) {
     var array = data.split('#')
