@@ -2,8 +2,9 @@
   <head>
     <title>라멘의 놀이터</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <script src="https://polygonscan.com/assets/js/custom/web3-eth.min.js?v=23.7.4.1"></script>
-    <script src="https://polygonscan.com//assets/js/custom/web3-providers-http.min.js?v=23.7.4.1"></script>
+    <!-- <script src="https://abscan.org/assets/js/custom/web3.min.js?v=0.5.2.3"></script>
+    <script src="https://abscan.org/assets/js/custom/web3-providers-http.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.15.0/ethers.umd.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script> -->
     <script>
@@ -18,7 +19,7 @@
     <!-- <script src="./objektimage.js?v=0"></script> -->
     <script src="./atmosphere.js?v=0"></script>
     <script src="./gravityNamuWiki.js?v=0"></script>
-    <script src="./gravityProgress.js"></script>
+    <!-- <script src="./gravityProgress.js"></script> -->
     <script src="./schedule2json.js"></script>
     <script src="./birthday2json.js"></script>
     <!-- <script src="./totalComo.js"></script> -->
@@ -54,7 +55,7 @@
         <p>나무위키 Gravity Result</p>
         <button onclick="namuRun()">실행</button>
       </div>
-      <div class="wrapper gravity-right">
+      <!-- <div class="wrapper gravity-right">
         <p>그래비티 추이</p>
         <select onchange="progressSelect()" id="selectStandard">
           <option value="count">개수</option>
@@ -66,7 +67,7 @@
           <option value="false">FALSE</option>
         </select>
         <button onclick="progressFront()">실행</button>
-      </div>
+      </div> -->
       <!-- <div class="wrapper grid-block">
         <p>누적 COMO</p>
         <input id="como-address" placeholder="COSMO ID or address">
@@ -85,6 +86,7 @@
       </div>
       <div class="wrapper grid-block">
         <p>생카 JSON화</p>
+        <input id="birth-title" placeholder="title" tabindex="4.5">
         <input id="birth-tweets1" placeholder="tweets1" tabindex="5">
         <input id="birth-tweets2" placeholder="tweets2" tabindex="6">
         <input id="birth-tag1" placeholder="tag1" tabindex="7">
@@ -146,7 +148,7 @@
         margin: 10px;
       }
       .gravity-left {
-        grid-row: 1 / 4;
+        grid-row: 1 / 3;
         grid-column: 1 / 2;
         text-align: center;
         position: relative;

@@ -1,5 +1,6 @@
 function birth2json() {
     var object = {
+        "title": input('birth-title'),
         "twitter": {
             "tweets": [
                 tweets(input('birth-tweets1'))
@@ -41,7 +42,7 @@ function birth2json() {
     console.log(object)
     $('#that').empty()
     $('#that').append(`<pre></pre>`)
-    $('pre').text(JSON.stringify(object,null,4))
+    $('pre').text(JSON.stringify(object,null,4).replaceAll("\n","\n\t\t"))
 }
 
 function tweets(data) {
